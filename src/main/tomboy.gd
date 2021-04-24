@@ -1,28 +1,28 @@
 extends Node
 
-var health : int = 36
-var max_health : int = health
+export(int) var health : int = 36 setget damaged
+export(int) var max_health : int = 36
 
-var mana : int = 20
-var max_mana : int = mana
+export(int) var mana : int = 20
+export(int) var max_mana : int = 20
 
-var damage : int = 10
+export(int) var damage : int = 10
 
 var defending : bool = false
-var acting : bool = true
 
 signal hit(hth)
-signal attack(dmg)
 signal magic(mana)
-signal cool(cool)
+
+const fight = preload("res://src/main/fight.tres")
 
 func _ready():
-	pass # Replace with function body.
+	fight.tomboy = self
 
-#func _process(delta):
-#	pass
+func _exit_tree():
+	fight.tomboy = null
 
-func _on_enemy_attack(dmg):
+func damaged(val : int):
+	var dmg : int = health - val
 	if defending:
 		dmg *= 0.4
 		defending = false
@@ -31,22 +31,22 @@ func _on_enemy_attack(dmg):
 	if health == 0:
 		queue_free() # die in the game, die in virtual life
 	else:
-		acting = true
+		fight.turn = true
 
-func _on_attack_pressed():
-	if acting:
-		emit_signal("attack", damage)
+func engage():
+	if fight.turn and fight.enemy != null:
+		fight.turn = false
+		fight.enemy.health -= damage
 
-func _on_defend_pressed():
-	if acting:
+func defend():
+	if fight.turn and fight.enemy != null:
+		fight.turn = false
 		defending = true
-		emit_signal("attack", 0)
+		fight.enemy.health = fight.enemy.health
 
-func _on_fire_pressed():
-	if acting:
+func tech():
+	if fight.turn and fight.enemy != null:
+		fight.turn = false
 		mana = clamp(mana - 5, 0, max_mana)
-		emit_signal("attack", 20)
+		fight.enemy.health -= 20
 		emit_signal("magic", mana)
-
-func _on_world_block(res):
-	acting = res

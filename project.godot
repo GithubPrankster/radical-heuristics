@@ -9,23 +9,39 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "TextureButton",
+"class": "ActionButton",
+"language": "GDScript",
+"path": "res://src/main/ui/action.gd"
+}, {
 "base": "Node",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://src/main/enemy.gd"
+}, {
+"base": "Resource",
+"class": "Fight",
+"language": "GDScript",
+"path": "res://src/main/fight.gd"
 } ]
 _global_script_class_icons={
-"Enemy": ""
+"ActionButton": "",
+"Enemy": "",
+"Fight": ""
 }
 
 [application]
 
 config/name="RADical heuristics"
-config/description="They came here to take things. Huuuge mistake."
+config/description="They came here to ruin stuff. Huuuge mistake."
 run/main_scene="res://src/main/world.tscn"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -36,6 +52,13 @@ window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[importer_defaults]
+
+texture={
+"flags/filter": false,
+"flags/srgb": 1
+}
 
 [input]
 
@@ -93,6 +116,6 @@ quality/reflections/texture_array_reflections=false
 quality/reflections/high_quality_ggx=false
 quality/subsurface_scattering/quality=0
 quality/subsurface_scattering/weight_samples=false
-environment/default_clear_color=Color( 0.2, 0.278431, 0.32549, 1 )
+environment/default_clear_color=Color( 0.596078, 0.643137, 0.670588, 1 )
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false

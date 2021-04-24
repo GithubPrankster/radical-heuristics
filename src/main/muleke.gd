@@ -1,4 +1,4 @@
 extends Enemy
 
 func _ready():
-	pass
+	fight.enemy_desc = "Seems smart\nbut is a total kiddo."
