@@ -1,10 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/main/muleke.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/fonts/mythe.tres" type="DynamicFont" id=3]
 [ext_resource path="res://src/main/world.gd" type="Script" id=4]
 [ext_resource path="res://src/main/tomboy.gd" type="Script" id=5]
+[ext_resource path="res://assets/ui/stats.png" type="Texture" id=6]
+[ext_resource path="res://assets/ui/health.png" type="Texture" id=7]
+[ext_resource path="res://assets/ui/tinybar.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/textbox.png" type="Texture" id=9]
+[ext_resource path="res://assets/ui/pill.png" type="Texture" id=10]
 
 [sub_resource type="CubeMesh" id=5]
 size = Vector3( 1, 2, 1 )
@@ -74,44 +79,91 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="attack" type="Button" parent="ui"]
-modulate = Color( 1, 0.403922, 0.145098, 1 )
-margin_left = 4.00035
-margin_top = 263.989
-margin_right = 105.0
-margin_bottom = 287.989
+[node name="attack" type="TextureButton" parent="ui"]
+modulate = Color( 0.419608, 0.921569, 0.580392, 1 )
+margin_left = 4.0
+margin_top = 260.0
+margin_right = 115.0
+margin_bottom = 282.0
+texture_normal = ExtResource( 10 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ui/attack"]
+margin_right = 111.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "attack"
-align = 0
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="defend" type="Button" parent="ui"]
+[node name="defend" type="TextureButton" parent="ui"]
 modulate = Color( 1, 0.403922, 0.145098, 1 )
-margin_left = 4.00035
-margin_top = 295.102
-margin_right = 105.0
-margin_bottom = 321.102
+margin_left = 4.0
+margin_top = 285.0
+margin_right = 115.0
+margin_bottom = 307.0
+texture_normal = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ui/defend"]
+margin_right = 111.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "defend"
-align = 0
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="fire" type="Button" parent="ui"]
+[node name="fire" type="TextureButton" parent="ui"]
 modulate = Color( 1, 0.403922, 0.145098, 1 )
-margin_left = 4.00035
-margin_top = 325.817
-margin_right = 105.0
-margin_bottom = 351.817
+margin_left = 4.0
+margin_top = 310.0
+margin_right = 115.0
+margin_bottom = 332.0
+texture_normal = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="ui/fire"]
+margin_right = 111.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "fire"
-align = 0
+text = "tech"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="items" type="TextureButton" parent="ui"]
+modulate = Color( 1, 0.403922, 0.145098, 1 )
+margin_left = 4.0
+margin_top = 335.0
+margin_right = 115.0
+margin_bottom = 357.0
+texture_normal = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="ui/items"]
+margin_right = 111.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "items"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -127,27 +179,90 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="urhp" type="Label" parent="ui"]
-margin_left = 4.00035
-margin_top = 20.8049
-margin_right = 148.0
-margin_bottom = 44.8049
-custom_fonts/font = ExtResource( 3 )
-text = "ur hp: 36"
+[node name="status" type="TextureRect" parent="ui"]
+margin_left = 384.0
+margin_top = 239.0
+margin_right = 640.0
+margin_bottom = 295.0
+texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="urmn" type="Label" parent="ui"]
-margin_left = 155.0
-margin_top = 21.0
-margin_right = 299.0
-margin_bottom = 45.0
-custom_fonts/font = ExtResource( 3 )
-text = "ur mn: 20"
+[node name="box" type="TextureRect" parent="ui"]
+margin_left = 368.0
+margin_top = 296.0
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="text" type="Label" parent="ui"]
+margin_left = 381.0
+margin_top = 307.0
+margin_right = 573.0
+margin_bottom = 350.0
+custom_fonts/font = ExtResource( 2 )
+text = "funny text...
+laugh"
+
+[node name="health_under" type="TextureProgress" parent="ui"]
+margin_left = 418.0
+margin_top = 249.0
+margin_right = 634.0
+margin_bottom = 264.0
+max_value = 36.0
+value = 36.0
+texture_progress = ExtResource( 7 )
+tint_progress = Color( 0.54902, 0.0745098, 0.0745098, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health" type="TextureProgress" parent="ui"]
+margin_left = 418.0
+margin_top = 249.0
+margin_right = 634.0
+margin_bottom = 264.0
+max_value = 36.0
+value = 36.0
+rounded = true
+texture_progress = ExtResource( 7 )
+tint_progress = Color( 0.298039, 1, 0.105882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mana_under" type="TextureProgress" parent="ui"]
+margin_left = 421.0
+margin_top = 275.0
+margin_right = 506.0
+margin_bottom = 282.0
+max_value = 20.0
+value = 20.0
+texture_progress = ExtResource( 8 )
+tint_progress = Color( 0.556863, 0.0470588, 0.380392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mana" type="TextureProgress" parent="ui"]
+margin_left = 421.0
+margin_top = 275.0
+margin_right = 506.0
+margin_bottom = 282.0
+max_value = 20.0
+value = 20.0
+rounded = true
+texture_progress = ExtResource( 8 )
+tint_progress = Color( 0.254902, 1, 0.823529, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tweener" type="Tween" parent="ui"]
 
 [connection signal="block" from="." to="tomboy" method="_on_world_block"]
 [connection signal="attack" from="tomboy" to="enemy" method="_on_tomboy_attack"]
