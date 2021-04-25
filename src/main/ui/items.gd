@@ -7,5 +7,13 @@ func _ready():
 
 func confirm():
 	if fight.turn:
-		confirm.play()
-		fight.tomboy.defend()
+		if fight.menu_lock == 0:
+			confirm.pitch_scale = 1.0
+			confirm.play()
+			alpha_add = -0.25
+			fight.menu_lock = 2
+		elif fight.menu_lock == 2:
+			confirm.pitch_scale = 0.8
+			confirm.play()
+			alpha_add = 0.0
+			fight.menu_lock = 0

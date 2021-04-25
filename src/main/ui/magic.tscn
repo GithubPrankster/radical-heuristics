@@ -4,16 +4,16 @@
 [ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/ui/pill.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/unselect_pill.png" type="Texture" id=4]
-[ext_resource path="res://src/main/ui/tech.gd" type="Script" id=5]
-[ext_resource path="res://assets/audio/fire.wav" type="AudioStream" id=6]
+[ext_resource path="res://src/main/ui/magic.gd" type="Script" id=5]
+[ext_resource path="res://assets/audio/item_toggle.wav" type="AudioStream" id=6]
 [ext_resource path="res://src/main/ui/select.tscn" type="PackedScene" id=7]
 
 [node name="magic" type="TextureButton"]
-modulate = Color( 0.133333, 0.788235, 0.898039, 1 )
-margin_left = 97.0
-margin_top = 295.0
-margin_right = 208.0
-margin_bottom = 317.0
+self_modulate = Color( 0.898039, 0.6, 0.133333, 1 )
+margin_left = 114.0
+margin_top = -50.0
+margin_right = 225.0
+margin_bottom = -28.0
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 1 )
 texture_hover = ExtResource( 3 )

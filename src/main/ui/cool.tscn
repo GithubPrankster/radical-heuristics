@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/main/ui/cool.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/ui/unselect_pill.png" type="Texture" id=3]
+[ext_resource path="res://assets/audio/item_toggle.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/ui/pill.png" type="Texture" id=5]
+[ext_resource path="res://assets/audio/select.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/ui/press_pill.png" type="Texture" id=7]
+[ext_resource path="res://src/main/ui/select.tscn" type="PackedScene" id=8]
+
+[node name="cool" type="TextureButton"]
+visible = false
+self_modulate = Color( 0.133333, 0.898039, 0.521569, 1 )
+margin_left = 114.0
+margin_top = -25.0
+margin_right = 225.0
+margin_bottom = -3.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 5 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="."]
+margin_right = 111.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "cool"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="select" type="AudioStreamPlayer" parent="." instance=ExtResource( 8 )]
+stream = ExtResource( 6 )
+volume_db = -10.0
+bus = "Fight UI"
+
+[node name="confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+bus = "Fight UI"

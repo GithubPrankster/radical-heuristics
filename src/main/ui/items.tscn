@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/ui/pill.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/unselect_pill.png" type="Texture" id=4]
 [ext_resource path="res://src/main/ui/items.gd" type="Script" id=5]
-[ext_resource path="res://src/main/ui/confirm.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/audio/item_toggle.wav" type="AudioStream" id=6]
 [ext_resource path="res://src/main/ui/select.tscn" type="PackedScene" id=7]
 
 [node name="items" type="TextureButton"]
@@ -35,4 +35,7 @@ __meta__ = {
 
 [node name="select" parent="." instance=ExtResource( 7 )]
 
-[node name="confirm" parent="." instance=ExtResource( 6 )]
+[node name="confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -10.0
+bus = "Fight UI"
