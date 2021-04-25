@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/model/main/tomboy/hoodie.tres" type="Material" id=1]
+[ext_resource path="res://assets/model/main/tomboy/skin.tres" type="Material" id=2]
+[ext_resource path="res://assets/model/main/tomboy/hair.tres" type="Material" id=3]
+[ext_resource path="res://assets/model/main/tomboy/face.png" type="Texture" id=4]
+[ext_resource path="res://assets/model/main/tomboy/tomboy.glb" type="PackedScene" id=5]
+[ext_resource path="res://assets/model/main/tomboy/yoyo.tres" type="Material" id=6]
+[ext_resource path="res://assets/model/main/tomboy/string.tres" type="Material" id=7]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode diffuse_lambert_wrap, unshaded, ambient_light_disabled, cull_disabled;
+
+uniform vec4 mixer : hint_color = vec4(1.0);
+uniform sampler2D tex : hint_albedo;
+
+varying float fog_weight;
+varying float vertex_distance;
+
+const float min_fog_distance = 10.0;
+const float max_fog_distance = 20.0;
+
+uniform bool fog = true;
+uniform vec3 fog_color = vec3(0.32, 0.38, 0.42);
+
+float inv_lerp(float from, float to, float value)
+{
+	return (value - from) / (to - from);
+}
+
+void vertex(){
+	vertex_distance = length((MODELVIEW_MATRIX * vec4(VERTEX, 1.0)));
+
+	fog_weight = inv_lerp(min_fog_distance, max_fog_distance, vertex_distance);
+	COLOR.a = clamp(fog_weight, 0, 1);
+}
+
+void fragment(){
+	ALBEDO = (texture(tex, UV) * mixer).rgb;
+	ALBEDO *= COLOR.rgb;
+	if(fog)
+		ALBEDO = mix(ALBEDO, fog_color, COLOR.a);
+	ALPHA = texture(tex, UV).a;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/mixer = Color( 1, 1, 1, 1 )
+shader_param/fog = true
+shader_param/fog_color = Vector3( 0.32, 0.38, 0.42 )
+shader_param/tex = ExtResource( 4 )
+
+[node name="tomboy" instance=ExtResource( 5 )]
+
+[node name="Cube" parent="Armature/Skeleton" index="0"]
+material/0 = ExtResource( 1 )
+material/1 = ExtResource( 2 )
+material/2 = ExtResource( 3 )
+
+[node name="Cylinder" parent="Armature/Skeleton" index="1"]
+material/0 = ExtResource( 6 )
+material/1 = ExtResource( 7 )
+
+[node name="Plane" parent="Armature/Skeleton" index="2"]
+material/0 = SubResource( 2 )
+
+[node name="Sphere" parent="Armature/Skeleton" index="3"]
+material/0 = ExtResource( 2 )
+
+[node name="Sphere001" parent="Armature/Skeleton" index="4"]
+material/0 = ExtResource( 3 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "idle_loop"

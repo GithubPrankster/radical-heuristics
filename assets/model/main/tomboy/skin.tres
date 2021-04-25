@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://assets/model/main/pstoo_fog.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/mixer = Color( 0.560784, 0.341176, 0.219608, 1 )
+shader_param/fog = true
+shader_param/fog_color = Vector3( 0.32, 0.38, 0.42 )

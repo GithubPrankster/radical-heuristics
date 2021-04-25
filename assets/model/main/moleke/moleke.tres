@@ -1,5 +1,10 @@
-shader_type spatial;
-render_mode diffuse_lambert_wrap, unshaded, ambient_light_disabled, cull_disabled;
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://assets/model/main/moleke/moleke.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode diffuse_lambert_wrap, unshaded, ambient_light_disabled, depth_draw_alpha_prepass;
 
 uniform vec4 mixer : hint_color = vec4(1.0);
 uniform sampler2D tex : hint_albedo;
@@ -30,4 +35,12 @@ void fragment(){
 	ALBEDO *= COLOR.rgb;
 	if(fog)
 		ALBEDO = mix(ALBEDO, fog_color, COLOR.a);
-}
+	ALPHA = mixer.a;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/mixer = Color( 1, 1, 1, 1 )
+shader_param/fog = true
+shader_param/fog_color = Vector3( 0.62, 0.64, 0.69 )
+shader_param/tex = ExtResource( 1 )

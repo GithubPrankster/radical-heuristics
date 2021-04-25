@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/main/muleke.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=2]
@@ -17,11 +17,11 @@
 [ext_resource path="res://assets/model/main/city.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/shadow.png" type="Texture" id=16]
 [ext_resource path="res://src/main/cam.gd" type="Script" id=17]
+[ext_resource path="res://assets/model/main/tomboy/tomboy.tscn" type="PackedScene" id=18]
+[ext_resource path="res://assets/ui/block.png" type="Texture" id=19]
+[ext_resource path="res://assets/model/main/moleke/moleke.tscn" type="PackedScene" id=20]
 
-[sub_resource type="CubeMesh" id=1]
-size = Vector3( 1, 2, 1 )
-
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=2]
 code = "shader_type spatial;
 render_mode diffuse_lambert_wrap, unshaded, ambient_light_disabled, cull_disabled, blend_sub;
 
@@ -56,24 +56,21 @@ void fragment(){
 		ALBEDO = mix(ALBEDO, fog_color, COLOR.a);
 }"
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 shader_param/mixer = Color( 1, 1, 1, 1 )
 shader_param/fog = true
 shader_param/fog_color = Vector3( 0.32, 0.38, 0.42 )
 shader_param/tex = ExtResource( 16 )
 
-[sub_resource type="CubeMesh" id=3]
-size = Vector3( 1, 1, 1 )
-
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=5]
 flags_unshaded = true
 flags_disable_ambient_light = true
 params_specular_mode = 4
 params_blend_mode = 2
 albedo_texture = ExtResource( 16 )
 
-[sub_resource type="Environment" id=4]
+[sub_resource type="Environment" id=6]
 background_mode = 1
 background_color = Color( 0.623529, 0.639216, 0.686275, 1 )
 fog_depth_begin = 0.0
@@ -90,28 +87,16 @@ script = ExtResource( 17 )
 [node name="tomboy" type="Node" parent="."]
 script = ExtResource( 5 )
 
-[node name="body" type="MeshInstance" parent="tomboy"]
-transform = Transform( 0.996462, 0, 0.0840431, 0, 1, 0, -0.0840431, 0, 0.996462, -0.678, -0.704, 4.041 )
-mesh = SubResource( 1 )
-material/0 = null
+[node name="tomboy" parent="tomboy" instance=ExtResource( 18 )]
+transform = Transform( 0.194084, 0, 0.0482828, 0, 0.2, 0, -0.0482828, 0, 0.194084, -0.621832, -0.415599, 4.02379 )
 
-[node name="shadow" type="Sprite3D" parent="tomboy/body"]
-transform = Transform( 1.49469, 0.126065, 7.34729e-09, 0, -6.55671e-08, 2, 0.126065, -1.49469, -8.71135e-08, 0, -0.998953, 0 )
-material_override = SubResource( 6 )
+[node name="shadow" type="Sprite3D" parent="tomboy/tomboy"]
+transform = Transform( 6, 2.38419e-06, 8.52651e-14, 0, -2.62268e-07, 6, 2.38419e-06, -6, -2.62268e-07, 1.90735e-06, -6.47048, 0.0860004 )
+material_override = SubResource( 3 )
 texture = ExtResource( 16 )
 
 [node name="enemy" type="Node" parent="."]
 script = ExtResource( 1 )
-
-[node name="body" type="MeshInstance" parent="enemy"]
-transform = Transform( 0.999293, 0, 0.0375855, 0, 1, 0, -0.0375855, 0, 0.999293, 0, -0.697, 0 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="shadow2" type="Sprite3D" parent="enemy/body"]
-transform = Transform( 0.999293, 0.0375856, 1.64292e-09, 0, -4.37114e-08, 1, 0.0375856, -0.999293, -4.36805e-08, 0, -1.006, 0 )
-material_override = SubResource( 2 )
-texture = ExtResource( 16 )
 
 [node name="kill" type="AudioStreamPlayer3D" parent="enemy"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.687057, 0 )
@@ -119,8 +104,16 @@ stream = ExtResource( 14 )
 unit_db = 1.649
 attenuation_filter_db = -9.4
 
+[node name="model" parent="enemy" instance=ExtResource( 20 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.697, 0 )
+
+[node name="shadow2" type="Sprite3D" parent="enemy/model"]
+transform = Transform( 3.33333, 3.35276e-07, 1.66533e-14, 0, -1.45705e-07, 3.33333, 3.35276e-07, -3.33333, -1.45705e-07, 0, -3.35333, 0 )
+material_override = SubResource( 5 )
+texture = ExtResource( 16 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 4 )
+environment = SubResource( 6 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.988335, 0.0652489, 0.137608, -0.11158, 0.925203, 0.362697, -0.10365, -0.373821, 0.921691, 0, 4.12049, -0.353801 )
@@ -129,6 +122,18 @@ shadow_enabled = true
 [node name="ui" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="block" type="TextureRect" parent="ui"]
+self_modulate = Color( 1, 1, 1, 0.368627 )
+margin_left = 3.0
+margin_top = 255.0
+margin_right = 116.0
+margin_bottom = 358.0
+texture = ExtResource( 19 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

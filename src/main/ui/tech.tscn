@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/ui/press_pill.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/main/ui/select.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/main/ui/magic.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/audio/item_toggle.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/ui/block.png" type="Texture" id=10]
 
 [node name="tech" type="TextureButton"]
 self_modulate = Color( 0.133333, 0.788235, 0.898039, 1 )
@@ -42,13 +43,24 @@ stream = ExtResource( 9 )
 volume_db = -10.0
 bus = "Fight UI"
 
+[node name="block" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.368627 )
+margin_left = 112.0
+margin_top = -56.0
+margin_right = 227.0
+margin_bottom = -2.0
+texture = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="cool" parent="." instance=ExtResource( 6 )]
-self_modulate = Color( 0.133333, 0.898039, 0.521569, 1 )
 COOL_COLOR = Color( 0.929412, 0.435294, 0.321569, 1 )
 LAME_COLOR = Color( 0.133333, 0.898039, 0.521569, 1 )
 
 [node name="magic" parent="." instance=ExtResource( 8 )]
 visible = false
-self_modulate = Color( 0.898039, 0.6, 0.133333, 1 )
 COOL_COLOR = Color( 0.321569, 0.572549, 0.929412, 1 )
 LAME_COLOR = Color( 0.898039, 0.6, 0.133333, 1 )
