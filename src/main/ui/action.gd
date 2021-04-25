@@ -32,8 +32,9 @@ func _on_mouse_exit():
 
 func _process(delta):
 	if fight.turn == false:
-		target_color.a = 0.5 + alpha_add
+		target_color.a = 0.5
 	else:
-		target_color.a = 1.0 + alpha_add
+		target_color.a = 1.0
+	target_color.a += alpha_add
 	rect_position = lerp(rect_position, target_pos, delta * 4)
 	self_modulate = lerp(self_modulate, target_color, delta * 4)

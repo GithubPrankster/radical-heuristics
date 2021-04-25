@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/main/muleke.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/audio/kill.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/model/main/city.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/shadow.png" type="Texture" id=16]
+[ext_resource path="res://src/main/cam.gd" type="Script" id=17]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1, 2, 1 )
@@ -84,6 +85,7 @@ script = ExtResource( 4 )
 
 [node name="cam" type="Camera" parent="."]
 transform = Transform( 0.618861, 0.0295783, 0.784944, 0, 0.999291, -0.0376553, -0.785501, 0.0233034, 0.618422, 2.9649, -0.481867, 5.05823 )
+script = ExtResource( 17 )
 
 [node name="tomboy" type="Node" parent="."]
 script = ExtResource( 5 )

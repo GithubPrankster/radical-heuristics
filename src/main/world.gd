@@ -28,7 +28,7 @@ func _ready():
 	mana.max_value = fight.tomboy.max_mana
 	mana_under.max_value = fight.tomboy.max_mana
 
-func _process(delta):
+func _process(_delta):
 	if fight.enemy_damaged:
 		theirhp.text = "their hp: " + str(fight.enemy_last_health)
 		text.text = fight.enemy_desc
