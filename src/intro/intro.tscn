@@ -1,0 +1,150 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/ui/title.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/tb_startup.png" type="Texture" id=2]
+[ext_resource path="res://src/intro/tb.gd" type="Script" id=3]
+[ext_resource path="res://src/intro/scroller.gd" type="Script" id=4]
+[ext_resource path="res://src/intro/scroller.shader" type="Shader" id=5]
+[ext_resource path="res://assets/ui/press_pill.png" type="Texture" id=6]
+[ext_resource path="res://assets/ui/unselect_pill.png" type="Texture" id=7]
+[ext_resource path="res://assets/ui/pill.png" type="Texture" id=8]
+[ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=9]
+[ext_resource path="res://src/intro/intro.gd" type="Script" id=10]
+[ext_resource path="res://assets/audio/select.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/item_toggle.wav" type="AudioStream" id=12]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 mixer : hint_color = vec4(1.0);
+uniform float time = 0.0;
+
+float checker(vec2 uv, float repeats) 
+{
+  float cx = floor(repeats * uv.x);
+  float cy = floor(repeats * uv.y); 
+  float result = mod(cx + cy, 2.0);
+  return sign(result);
+}
+
+void fragment()
+{
+	vec2 scr_uv = SCREEN_UV * vec2(16.0 / 9.0, 1.0) + (time * 0.1);
+	COLOR.rgb = mix(mixer.rgb, mixer.rgb * 0.9, checker(scr_uv, 8.0));
+	COLOR += texture(SCREEN_TEXTURE, SCREEN_UV) * 0.5;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/mixer = Color( 0.572549, 0.686275, 0.796078, 1 )
+shader_param/time = 0.0
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+shader_param/mixer = Color( 0.568627, 0.909804, 1, 1 )
+shader_param/time = 0.0
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 5 )
+shader_param/mixer = Color( 1, 0.294118, 0.294118, 1 )
+shader_param/time = 0.0
+
+[node name="intro" type="Node2D"]
+script = ExtResource( 10 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 2 )
+margin_right = 640.0
+margin_bottom = 360.0
+color = Color( 0.572549, 0.686275, 0.796078, 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tb" type="TextureRect" parent="."]
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rad" type="TextureRect" parent="."]
+margin_left = 65.0
+margin_top = 235.0
+margin_right = 490.0
+margin_bottom = 311.0
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+traction = true
+
+[node name="scroller" type="ColorRect" parent="."]
+material = SubResource( 3 )
+margin_left = 566.0
+margin_top = -70.0
+margin_right = 761.0
+margin_bottom = 13.0
+rect_rotation = 37.8998
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scroller2" type="ColorRect" parent="."]
+material = SubResource( 4 )
+margin_left = -26.0
+margin_top = 256.0
+margin_right = 169.0
+margin_bottom = 339.0
+rect_rotation = 37.8998
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tex" type="TextureButton" parent="."]
+self_modulate = Color( 0.282353, 1, 0.52549, 1 )
+margin_left = 274.0
+margin_top = 317.0
+margin_right = 385.0
+margin_bottom = 339.0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Label" parent="tex"]
+margin_right = 111.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 9 )
+text = "start"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="adios" type="AudioStreamPlayer" parent="tex"]
+stream = ExtResource( 11 )
+volume_db = -10.0
+pitch_scale = 0.92
+
+[node name="commence" type="AudioStreamPlayer" parent="tex"]
+stream = ExtResource( 12 )
+volume_db = -10.0
+pitch_scale = 0.92
+
+[node name="fader" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 360.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

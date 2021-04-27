@@ -11,6 +11,8 @@ onready var tweener = $ui/tweener
 
 onready var text = $ui/text
 
+onready var fader = $ui/fader
+
 const fight = preload("res://src/main/fight.tres")
 
 func _ready():
@@ -27,12 +29,15 @@ func _ready():
 	
 	mana.max_value = fight.tomboy.max_mana
 	mana_under.max_value = fight.tomboy.max_mana
+	
+	fader.color.a = 1.0
 
-func _process(_delta):
+func _process(delta):
 	if fight.enemy_damaged:
 		theirhp.text = "their hp: " + str(fight.enemy_last_health)
 		text.text = fight.enemy_desc
 		fight.enemy_damaged = false
+	fader.color.a = clamp(fader.color.a - delta, 0.0, 1.0)
 
 func _on_tomboy_hit(hth):
 	health.value = hth

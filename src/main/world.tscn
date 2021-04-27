@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/main/muleke.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/ferrite.tres" type="DynamicFont" id=2]
@@ -18,10 +18,9 @@
 [ext_resource path="res://assets/shadow.png" type="Texture" id=16]
 [ext_resource path="res://src/main/cam.gd" type="Script" id=17]
 [ext_resource path="res://assets/model/main/tomboy/tomboy.tscn" type="PackedScene" id=18]
-[ext_resource path="res://assets/ui/block.png" type="Texture" id=19]
 [ext_resource path="res://assets/model/main/moleke/moleke.tscn" type="PackedScene" id=20]
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=1]
 code = "shader_type spatial;
 render_mode diffuse_lambert_wrap, unshaded, ambient_light_disabled, cull_disabled, blend_sub;
 
@@ -56,21 +55,21 @@ void fragment(){
 		ALBEDO = mix(ALBEDO, fog_color, COLOR.a);
 }"
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 shader_param/mixer = Color( 1, 1, 1, 1 )
 shader_param/fog = true
 shader_param/fog_color = Vector3( 0.32, 0.38, 0.42 )
 shader_param/tex = ExtResource( 16 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
 flags_disable_ambient_light = true
 params_specular_mode = 4
 params_blend_mode = 2
 albedo_texture = ExtResource( 16 )
 
-[sub_resource type="Environment" id=6]
+[sub_resource type="Environment" id=4]
 background_mode = 1
 background_color = Color( 0.623529, 0.639216, 0.686275, 1 )
 fog_depth_begin = 0.0
@@ -92,7 +91,7 @@ transform = Transform( 0.194084, 0, 0.0482828, 0, 0.2, 0, -0.0482828, 0, 0.19408
 
 [node name="shadow" type="Sprite3D" parent="tomboy/tomboy"]
 transform = Transform( 6, 2.38419e-06, 8.52651e-14, 0, -2.62268e-07, 6, 2.38419e-06, -6, -2.62268e-07, 1.90735e-06, -6.47048, 0.0860004 )
-material_override = SubResource( 3 )
+material_override = SubResource( 2 )
 texture = ExtResource( 16 )
 
 [node name="enemy" type="Node" parent="."]
@@ -109,11 +108,11 @@ transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.697, 0 )
 
 [node name="shadow2" type="Sprite3D" parent="enemy/model"]
 transform = Transform( 3.33333, 3.35276e-07, 1.66533e-14, 0, -1.45705e-07, 3.33333, 3.35276e-07, -3.33333, -1.45705e-07, 0, -3.35333, 0 )
-material_override = SubResource( 5 )
+material_override = SubResource( 3 )
 texture = ExtResource( 16 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 6 )
+environment = SubResource( 4 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.988335, 0.0652489, 0.137608, -0.11158, 0.925203, 0.362697, -0.10365, -0.373821, 0.921691, 0, 4.12049, -0.353801 )
@@ -122,18 +121,6 @@ shadow_enabled = true
 [node name="ui" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="block" type="TextureRect" parent="ui"]
-self_modulate = Color( 1, 1, 1, 0.368627 )
-margin_left = 3.0
-margin_top = 255.0
-margin_right = 116.0
-margin_bottom = 358.0
-texture = ExtResource( 19 )
-expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -241,6 +228,12 @@ __meta__ = {
 }
 
 [node name="tweener" type="Tween" parent="ui"]
+
+[node name="fader" type="ColorRect" parent="ui"]
+margin_right = 640.0
+margin_bottom = 360.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
 
 [node name="city" parent="." instance=ExtResource( 15 )]
 transform = Transform( -6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 0, -1.72071, -3.83712 )

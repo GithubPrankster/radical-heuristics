@@ -27,7 +27,7 @@ func _process(delta):
 			emit_signal("faded")
 			deaths_door = false
 			pass
-		ref_material.set_shader_param("mixer", Color(death_fade, death_fade, 1, death_fade))
+		ref_material.set_shader_param("mixer", Color(death_fade, 1, 1, death_fade))
 		death_fade -= delta
 
 func damaged(val : int):
